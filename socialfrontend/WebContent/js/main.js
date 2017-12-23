@@ -1,3 +1,4 @@
+
 var app = angular.module("myApp", ["ngRoute"]);
 app.config(function($routeProvider) {
 	
@@ -14,4 +15,11 @@ app.config(function($routeProvider) {
     .when("/register", {
         templateUrl : "User/register.html",
         
-    })});   
+    })
+ .when("/mywall", {
+        templateUrl : "User/mywall.html",
+        
+    })    
+
+
+});   

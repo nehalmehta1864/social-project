@@ -32,13 +32,13 @@ input{
         <div class="col m6">
         <div class="card card-1" style="height:80vh">
            
-            <div data-ng-controller="registercontroller">
-             <form   name="regform" data-ng-submit="register()" >
+            <div data-ng-controller="UserController">
+             <form   name="registerUser()" data-ng-submit="registerUser()" >
           
                 
                    
                         <div class="input-field col s6">
-                              <input type="text" data-ng-model="User.firstname"  required>
+                              <input type="text" data-ng-model="Users.firstname"  required>
               <label for="first-name">First Name</label>
              
                </div> 
@@ -46,7 +46,7 @@ input{
               
                                   <div class="input-field col s6">
                            
-                         <input  type="text" data-ng-model="User.lastname"   required>
+                         <input  type="text" data-ng-model="Users.lastname"   required>
               <label for="last-name">Last Name</label>  
                          
                       
@@ -57,19 +57,24 @@ input{
                  
                        
                    <div class="input-field col s12">         
-                <input  type="email" data-ng-model="User.email"  required >
+                <input  type="email" data-ng-model="Users.email"  required >
                             <label for="email">Email</label>
                              
                          </div>  
                      
-              
+               <div class="input-field col s6">
+                              <input type="text" data-ng-model="Users.username"  required>
+              <label for="username">username</label>
+             
+               </div> 
+               
                  
                         <div class="input-field col s12">
                   
-                 <input  type="password" data-ng-model="User.password"   required>
+                 <input  type="password" data-ng-model="Users.password"   required>
                             <label for="passs">Password</label>
                           
-                   
+                 
                     </div>
                     
                       <div class="input-field col s12">

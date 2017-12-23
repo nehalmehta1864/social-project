@@ -1,19 +1,17 @@
-app.controller("registercontroller", function ($scope,$location,$http,$rootScope) {
+
+
+
+app.controller("UserController", function ($scope,$location,$http) {
 	 $scope.msg = "Register  page";
-	 $scope.Users={firstname:'',lastname:'',email:'',password:'',role:'ROLE_USER',isonline:'NO'};
-	 $scope.register=function()
+	 $scope.user={username:'',firstname:'',lastname:'',email:'',password:'',role:'ROLE_USER',isonline:'NO'};
+	 $scope.registerUser=function()
 	 {
 		 console.log("in register controller angualar");
 		
-		 $http.post("http://localhost:8002/socialrestend/user/register",$scope.Users).then(function(response){
+		 $http.post("http://localhost:8002/socialrestend/user/register",$scope.user).then(function(response){
 		 
 			 console.log("Registerd Successfully")
-			 $scope.Users=response.data;
-			 $location.path("/login")
-								
-			},function(error){
-				console.error("Error while creating user"+error)
-			});
+						});
 		 
 	 }
 	 
@@ -22,24 +20,22 @@ app.controller("registercontroller", function ($scope,$location,$http,$rootScope
 	 $scope.login=function()
 	 {
 		 console.log("in login method");
-		 $http.post("http://localhost:8002/socialrestend/user/login",$scope.Users).then(function(response)
+		 $http.post("http://localhost:8002/socialrestend/user/login",$scope.user).then(function(response)
 				 {
 			
 			 
-			 $scope.Usersdet=response.data;
-			 $rootScope.currentuser=response.data;
-			 console.log("ROLE"+$rootScope.currentuser.role)
-			 $location.path("/blog")
+			 $scope.user=response.data;
+	
+			 $location.path("/login")
 				 });
 		 
 	 }
-	 
 });
 
 
 
-app.controller("logoutcontroller", function ($scope,$location,$http,$rootScope) {
-console.log("in logout controlelr")
+app.controller("UserController", function ($scope,$location,$http,$rootScope) {
+
 	 $scope.logout=function()
 	 {
 	 

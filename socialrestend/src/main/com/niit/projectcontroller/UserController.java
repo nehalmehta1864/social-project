@@ -1,3 +1,4 @@
+
 package com.niit.projectcontroller;
 
 import java.util.ArrayList;
@@ -46,15 +47,16 @@ UsersDAO userDAO;
 		}
 	 
 	 @RequestMapping(value="/register",method=RequestMethod.POST)
-		public ResponseEntity<Users> createUser(@RequestBody Users user){
-			System.out.println("In register controller");
-			boolean isSaved=userDAO.saveUser(user);
-			if(isSaved) {
-			return new ResponseEntity<Users>(user,HttpStatus.OK);
+		public ResponseEntity<String> register(@RequestBody Users user){
+			if(userDAO.addUser(user))
+			{
+				return new ResponseEntity<String>("Registered",HttpStatus.OK);
 			}
 			else
-				return new ResponseEntity<Users>(user,HttpStatus.BAD_REQUEST);
-			
+			{
+				return new ResponseEntity<String>("Error in Registration",HttpStatus.INTERNAL_SERVER_ERROR);
+				
+			}
 		}
 	
 	 @RequestMapping(value="/login",method=RequestMethod.POST)

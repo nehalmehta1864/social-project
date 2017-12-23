@@ -1,6 +1,7 @@
 package com.niit.socialbackend.daoImpl;
 
-import java.util.ArrayList;
+
+import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -21,16 +22,10 @@ public class UsersDAOImpl implements UsersDAO {
 	{
 		this.sessionFactory=sessionfactory;
 	}
-	 @Transactional
-		public ArrayList<Users> getAllUser() {
-			
-			String hql = "from Users";
-			Query query =sessionFactory.getCurrentSession().createQuery(hql);		
-			return (ArrayList<Users>) query.list();
-			
-		}
+
+		
 	  @Transactional
-	  public boolean saveUser(Users user) {
+	  public boolean addUser(Users user) {
 	  	
 	  	try {
 	  		sessionFactory.getCurrentSession().save(user);
@@ -141,6 +136,13 @@ public class UsersDAOImpl implements UsersDAO {
 		}
 		return user;
 		
+	}
+	public List<Users> getAllUsers() {
+			String hql = "from Users";
+		Query query =sessionFactory.getCurrentSession().createQuery(hql);		
+		return (List<Users>) query.list();
+		
+	
 	}
 
 
