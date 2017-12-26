@@ -21,5 +21,6 @@ app.config(function($routeProvider) {
         
     })    
 
-
+.when('/blog', {templateUrl : 'blog/blog.html',	controller : 'blogController'})
+.when('/adminBlog',{templateUrl : 'blog/adminBlog.html',controller : 'adminBlogController'})
 });   
