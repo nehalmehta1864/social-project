@@ -8,6 +8,7 @@
   <packaging>jar</packaging>
 
   <name>socialbackend</name>
+
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -32,7 +33,7 @@
       <scope>test</scope>
     </dependency>
     
-    
+   
     <dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -92,7 +93,7 @@
   <dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
-			<version>1.4.196</version>
+			<version>1.4.192</version>
 		</dependency>
 
     

@@ -25,26 +25,23 @@ public class BlogController {
 	@PostMapping(value = "/insertBlog")
 	public ResponseEntity<String> insertBlog(@RequestBody Blog blog)
 
-	{
+	{	
+		blog.setStatus("NA");
 		blog.setCreateDate(new java.util.Date());
 		if (blogDAO.addBlog(blog))
-
 			return new ResponseEntity<String>("Blog Added", HttpStatus.OK);
-
 		else
-
 			return new ResponseEntity<String>("exception arised", HttpStatus.METHOD_FAILURE);
-
 	}
 
-	@RequestMapping(value = "/getAllBlogs", method = RequestMethod.GET, headers = "Accept=application/json")
-	public List<Blogs> getAllBlogs() {
-		return blogDAO.getAllBlogs();
+	@RequestMapping(value = "/getAllBlog", method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<Blog> getAllBlog() {
+		return blogDAO.getAllBlog();
 	}
 
 	@GetMapping("/deleteBlog/{blogId}")
 	public ResponseEntity<String> deleteBlog(@PathVariable("blogId") int blogId) {
-		Blogs tempblog = blogDAO.getBlog(blogId);
+		Blog tempblog = blogDAO.getBlog(blogId);
 		System.out.println("deletion in blog");
 		if (blogDAO.deleteBlog(tempblog)) 
 		{			
@@ -58,7 +55,7 @@ public class BlogController {
 
 	@PostMapping(value = "/editBlog")
 	public ResponseEntity<String> updateBlog(@RequestBody Blog blog) {
-		Blogs tempBlog = blogDAO.getBlog(blog.getBlogId());
+		Blog tempBlog = blogDAO.getBlog(blog.getBlogId());
 
 		tempBlog.setBlogName(blog.getBlogName());
 		tempBlog.setBlogContent(blog.getBlogContent());
@@ -73,7 +70,7 @@ public class BlogController {
 
 	@GetMapping("/approveBlog/{blogId}")
 	public ResponseEntity<String> approveBlog(@PathVariable("blogId") int blogId) {
-		Blogs tempblog = blogDAO.getBlog(blogId);
+		Blog tempblog = blogDAO.getBlog(blogId);
 
 		if (blogDAO.approveBlog(tempblog)) {
 			return new ResponseEntity<String>("Blog updated", HttpStatus.OK);
@@ -84,7 +81,7 @@ public class BlogController {
 
 	@GetMapping("/rejectBlog/{blogId}")
 	public ResponseEntity<String> rejectBlog(@PathVariable("blogId") int blogId) {
-		Blogs tempblog = blogDAO.getBlog(blogId);
+		Blog tempblog = blogDAO.getBlog(blogId);
 		if (blogDAO.rejectBlog(tempblog)) {
 			return new ResponseEntity<String>("Blog updated", HttpStatus.OK);
 
@@ -96,7 +93,7 @@ public class BlogController {
 	@GetMapping("/incLike/{blogId}")
 	public ResponseEntity<String> incrementLike(@PathVariable("blogId") int blogId)
 	{
-		Blogs tempblog=blogDAO.getBlog(blogId);
+		Blog tempblog=blogDAO.getBlog(blogId);
 		if(blogDAO.incrementLike(tempblog))
 		{
 			return new ResponseEntity<String>("like incremented",HttpStatus.OK);

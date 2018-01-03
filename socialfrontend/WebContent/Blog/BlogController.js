@@ -12,8 +12,9 @@ app.controller("blogController", function($scope, $http, $location) {
 	fetchAllBlog();
 	$scope.insertBlog = function() {
 		console.log('entered insertBlog');
-		$http.post('http://localhost:8002/socialrestend/insertBlog',
-				$scope.blog).then(fetchAllBlog(), function(response) {
+		$http.post('http://localhost:8002/socialrestend/insertBlog',	$scope.blog)
+		.then(fetchAllBlog(), function(response) 
+		{
 			console.log("successful blog entered");
 			$location.path("/blog")
 		});

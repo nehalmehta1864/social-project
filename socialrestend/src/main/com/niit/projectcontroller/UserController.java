@@ -1,88 +1,68 @@
-
 package com.niit.projectcontroller;
 
-import java.util.ArrayList;
+import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
-
-import org.h2.engine.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.niit.socialbackend.dao.UsersDAO;
-
 import com.niit.socialbackend.model.Users;
 
 @RestController
-
-@RequestMapping("/user")
 public class UserController {
-@Autowired
-UsersDAO userDAO;
 
-	 @RequestMapping(value="/getAllUsers",method=RequestMethod.GET)
-		public ArrayList<Users> getAllUser(){
-		 System.out.println("in rest controller getallusers");
-			ArrayList<Users> user=(ArrayList<Users>)userDAO.getAllUser();
-			System.out.println("in rest controller getallusers");
+	@Autowired
+	private UsersDAO userDAO;
 
-		return user;		
-		}
-	
-	 @RequestMapping(value="/getUser/{userid}",method=RequestMethod.GET)
-		public ResponseEntity<Users> getUser(@PathVariable("userid") int userId){
-			
-		 if(userDAO.getUser(userId)==null){
-				
-			}
-			return new ResponseEntity<Users>(userDAO.getUser(userId),HttpStatus.OK);
-					
-		}
-	 
-	 @RequestMapping(value="/register",method=RequestMethod.POST)
-		public ResponseEntity<String> register(@RequestBody Users user){
-			if(userDAO.addUser(user))
-			{
-				return new ResponseEntity<String>("Registered",HttpStatus.OK);
-			}
-			else
-			{
-				return new ResponseEntity<String>("Error in Registration",HttpStatus.INTERNAL_SERVER_ERROR);
-				
-			}
-		}
-	
-	 @RequestMapping(value="/login",method=RequestMethod.POST)
-		public ResponseEntity<Users> login(@RequestBody com.niit.socialbackend.model.Users user){
-		
+	@RequestMapping(value = "/getAllUsers", method = RequestMethod.GET, headers = "Accept=application/json")
+	public List<Users> getAllUser() {
+		return userDAO.getAllUser(); 
+	}
 
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ResponseEntity<Users> createUser(@RequestBody Users user) {
+		user.setIsOnline("N");
+		user.setRole("USER");
+		boolean isSaved = userDAO.saveUser(user);
+		if (isSaved)
+			return new ResponseEntity<Users>(user, HttpStatus.OK);
+		else
+			return new ResponseEntity<Users>(user, HttpStatus.METHOD_FAILURE);
+	}
 
-		 
-			if(userDAO.checkLogin(user))
-			{
-				 Users tempuser=userDAO.getUserbyemail(user.getEmail());
-				System.out.println("3..."+tempuser.getEmail());
-				System.out.println("3..."+tempuser.getPassword());
-			tempuser.setIsonline("YES");
-				userDAO.updateOnlineStatus(tempuser);
-				
-			return new ResponseEntity<Users>(tempuser,HttpStatus.OK);
-				
-				
-			}
-			else
-			{
-				return new ResponseEntity<Users>(user,HttpStatus.BAD_REQUEST);
-			}
-			
+	@PostMapping("/login")
+	public ResponseEntity <Users> checkLogin(@RequestBody Users user, HttpSession session) {		
+		if (userDAO.checkLogin(user)) {
+			System.out.println("logging"); 
+			Users tempUser = userDAO.getUser(user.getUsername());
+			userDAO.updateOnlineStatus("Y", tempUser);
+			session.setAttribute("username:", user.getUsername());
+			System.out.println("User Controller::"+user.getUsername());			
+			return new ResponseEntity<Users>(tempUser, HttpStatus.OK);
 		}
-	
-	 
+		else 
+		{
+			return new ResponseEntity<Users>(user, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	@GetMapping(value = "/logout/{username}")
+	public ResponseEntity<String> loggingout(@PathVariable("username") String username) {
+		Users user = userDAO.getUser(username);
+		if (userDAO.updateOnlineStatus("N", user)) {
+			return new ResponseEntity<String>("Successful logout", HttpStatus.OK);
+		} else {
+			return new ResponseEntity<String>("error in logout", HttpStatus.METHOD_FAILURE);
+		}
+	}
+
 }

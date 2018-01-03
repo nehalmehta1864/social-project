@@ -11,7 +11,8 @@ import org.springframework.stereotype.Repository;
 
 import com.niit.socialbackend.dao.BlogCommentDAO;
 import com.niit.socialbackend.model.BlogComments;
-@Repository("blogCommentsDAO")
+
+ @Repository("blogCommentsDAO")
 public class BlogCommentDAOImpl implements BlogCommentDAO {
 	@Autowired
 	SessionFactory sessionFactory;

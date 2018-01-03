@@ -42,7 +42,7 @@ public class HibernateConfig
 	       sessionBuilder.addAnnotatedClass(Users.class);
 	       sessionBuilder.addAnnotatedClass(Blog.class);
 	       sessionBuilder.addAnnotatedClass(BlogComments.class);
-	
+	   
 	        return sessionBuilder.buildSessionFactory();
 	    }
 	 @Autowired
@@ -91,19 +91,20 @@ public class HibernateConfig
 		}
 	    
 	    @Autowired    
-	    @Bean(name="blogDAO")
+	    @Bean(name="BlogDAO")
 		public BlogDAO getBlogDAO(SessionFactory sessionFactory)
 		{
-			System.out.println("Blog DAO object Created");
+			System.out.println("BLog DAO object Created");
 			return new BlogDAOImpl(sessionFactory);
 		}
-	    
 	    @Autowired    
-	    @Bean(name="blogCommentDAO")
-	    public BlogCommentDAO getBlogCommentDAO(SessionFactory sessionFactory)
+	    @Bean(name="BlogCommentDAO")
+		public BlogCommentDAO getBlogCommentDAOImpl(SessionFactory sessionFactory)
 		{
-			System.out.println("BlogComment DAO object Created");
+			System.out.println("BLogCOmments DAO object Created");
 			return new BlogCommentDAOImpl(sessionFactory);
 		}
+	    
+	   
 	    
 }

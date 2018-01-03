@@ -4,8 +4,8 @@ import java.util.List;
 
 import com.niit.socialbackend.model.Blog;
 
-public interface BlogDAO 
-{
+public interface BlogDAO {
+	
 	public boolean addBlog(Blog blog);
 	public boolean updateBlog(Blog blog);
 	public boolean deleteBlog(Blog blog);

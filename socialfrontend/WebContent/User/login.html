@@ -1,4 +1,51 @@
+<div class="jumbotron text-center">
+	<h1>Login Page</h1>
+	
+	
+</div>
+<div ng-controller="usercontroller">
+<div  class="container">
+  
+  <div class="row" id="pwd-container">
+    <div class="col-md-4"></div>
+    
+    <div class="col-md-4" >
+      <section class="login-form">
+        <form id="users" method="post">
+          <img src="http://i.imgur.com/RcmcLv4.png" class="img-responsive" alt="" />
+          <input type="text" ng-model="user.username" name="username" placeholder="username" required class="form-control input-lg"  />
+          
+          <input type="password" ng-model="user.password" class="form-control input-lg" id="password" placeholder="Password" required="" />
+          
+          
+          <div class="pwstrength_viewport_progress"></div>
+          
+          
+          <button  type="submit"  class="btn btn-lg btn-primary btn-block" ng-click="loginuser()">Login</button>
+          <div>
+            <a href="#/register">Create account</a> 
+          </div>
+          
+        </form>    
+        
+      </section>  
+      </div>
+      
+      <div class="col-md-4"></div>
+      
 
+  </div>
+  
+  <p>
+    <br>
+    <br>
+    
+  </p>     
+  
+  </div>
+</div> 
+
+<!-- 
 <div class="container">
     <div class="row">
         <div class="col m6">
@@ -8,7 +55,7 @@
         <div class="card card-1" style="margin-top:15vh;height:60vh">
             
             <div class="row">
-            <div data-ng-controller="UserController">
+            <div data-ng-controller="usercontroller">
                 <form class="col s12" data-ng-submit="login()" >
                    
                            <div class="input-field col s12">         
@@ -45,3 +92,4 @@
 </div>
 
 </div>
+ -->

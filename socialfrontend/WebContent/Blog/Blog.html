@@ -1,7 +1,7 @@
 <center>
-	<b font-size="6">Blog Page</b>
+	<b font-size="6">Add Blog </b>
 </center>
-<div ng-controller="blogController">
+<div ng-controller="BlogController">
 
 	<form id="blogform" data-ng-submit="insertBlog()" method="post">
 		<table align="center" width="100%" border=1>
@@ -19,14 +19,17 @@
 	</form>
 
 <br/>
-	<table align="center" width="100%" border=1>
+<div class="table-responsive">
+	<table id="myTable" class="table table-striped" > 
+  <thead>
 		
-		<tr bgcolor="orange">
-			<td>Blog Name</td>
-			<td>Blog Content</td>
-			<td>Likes</td>
-			<td>Operations</td>
+		<tr >
+			<td><b>Blog Name</b></td>
+			<td><b>Blog Content</b></td>
+			<td><b>Likes</b></td>
+			<td><b>Operations</b></td>
 		</tr>
+		</thead>
 		<tr bgcolor="cyan" ng-repeat="blog in blogdata">
 			<td>{{blog.blogName}}</td>
 			<td>{{blog.blogContent}}</td>
@@ -35,4 +38,5 @@
 		</tr>
 
 	</table>
+</div>
 </div>

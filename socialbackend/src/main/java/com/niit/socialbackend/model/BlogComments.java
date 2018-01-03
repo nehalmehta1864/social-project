@@ -1,68 +1,61 @@
 package com.niit.socialbackend.model;
 
+import java.util.Date;
 
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import javax.persistence.Table;
-
+import org.springframework.stereotype.Component;
 
 @Entity
+@Component
+public class BlogComments {
 
-@Table(name="BlogComments")
-public class BlogComments  {
-
-	/**
-	 * 
-	 */
-	
 	@Id
-    @GeneratedValue 
-    @Column(name = "BlogcomId", nullable = false)
-	private int blogcomid;
+	@GeneratedValue
+	int blogCommentsId;
+	int blogId;
+	String comment;
+	private Date commentDate;
+	int userId;
+	String username;
 	
-	@Column(name = "BlogComm", nullable = false)
-    private String blogcomm;
-	
-
-
-	@Column(name = "Blogid", nullable = false)
-	private int blogid;
-	
-	@Column(name = "Userid", nullable = false)
-	private int userid;
-	
-	
-	
-	
-
-	public int getBlogid() {
-		return blogid;
+	public int getBlogCommentsId() {
+		return blogCommentsId;
 	}
-	public void setBlogid(int blogid) {
-		this.blogid = blogid;
+	public void setBlogCommentsId(int blogCommentsId) {
+		this.blogCommentsId = blogCommentsId;
 	}
-	public int getUserid() {
-		return userid;
+	public int getBlogId() {
+		return blogId;
 	}
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public void setBlogId(int blogId) {
+		this.blogId = blogId;
 	}
-	public int getBlogcomid() {
-		return blogcomid;
+	public String getComment() {
+		return comment;
 	}
-	public String getBlogcomm() {
-		return blogcomm;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
-	public void setBlogcomm(String blogcomm) {
-		this.blogcomm = blogcomm;
+	public Date getCommentDate() {
+		return commentDate;
 	}
-	public void setBlogcomid(int blogcomid) {
-		this.blogcomid = blogcomid;
+	public void setCommentDate(Date commentDate) {
+		this.commentDate = commentDate;
 	}
-
-
+	public int getUserId() {
+		return userId;
+	}
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
 }

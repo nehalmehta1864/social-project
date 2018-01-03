@@ -67,7 +67,7 @@ public class BlogDAOImpl implements BlogDAO {
 	@Transactional
 	public List<Blog> getAllBlogs() {
 
-		return sessionFactory.getCurrentSession().createQuery("from Blog").list();
+		return sessionFactory.getCurrentSession().createQuery("from Blogs").list();
 	}
 
 	@Transactional

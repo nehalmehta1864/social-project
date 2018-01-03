@@ -1,3 +1,189 @@
+<!DOCTYPE html>
+<html >
+<head>
+<meta charset="ISO-8859-1">
+<title>SOCIAL COLLABORATIONS</title>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.3/lodash.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.1/sockjs.min.js"></script>
+	
+<script src="js/app.js"></script>
+<script src="User/userServices.js"></script>
+<script src="User/usercontroller.js"></script>
+<script src="Blog/BlogController.js"></script>
+
+<script src="Blog/adminBlogController.js"></script>
+
+
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" />
+
+<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">   
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css"></style>
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+</head>
+<body ng-app="myApp">
+	Role:{{currentUser.role}}
+	<nav class="navbar navbar-inverse">
+	<div class="container">
+	<div class="navbar-header">
+	<a class="navbar-brand" href="/">Social Web</a>
+	</div>
+
+	<ul class="nav navbar-nav navbar-right">
+	<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+	<li ng-hide="currentUser.role=='USER' || currentUser.role=='ADMIN'"><a href="#register"><i class="fa fa-shield"></i>Registration</a></li>
+	<li ng-hide="currentUser.role=='USER' || currentUser.role=='ADMIN'"><a href="#login"><i class="fa fa-shield"></i>Login</a></li>
+	<li><a href="#blog"><i class="fa fa-shield"></i>Blog</a></li>
+	<li ng-show="currentUser.role=='ADMIN'"><a href="#adminBlog"><span class="glyphicon glyphicon-user"></span>Admin Blog</a></li>
+	<li ng-show="currentUser.role=='USER' || currentUser.role=='ADMIN'"><a href="#logout" ng-click="logout()"><span class="glyphicon glyphicon-off"></span>Logout</a></li>
+	
+	<li ng-show="currentUser.role=='USER' || currentUser.role=='ADMIN'"><a href="#"><i class="fa fa-shield"></i>Welcome:{{currentUser.username}}</a></li>
+	
+	</ul>
+</div>
+
+
+</nav>
+<div id="main">
+		<!-- angular templating -->
+		<!-- this is where content will be injected -->
+		<div ng-view></div>
+</div>
+
+<!-- <script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
+<script src = "https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.min.js"></script> -->
+</body>
+</html>
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  Compiled and minified JavaScript
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+<style>
+      .card-1 {
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+}
+.card-1:hover {
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+      
+     
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
+<script src="js/app.js"></script>
+<script src="User/usercontroller.js"></script>
+
+<script src="Blog/blogcontroller.js"></script>
+
+
+</head>
+<body ng-app="myApp" >
+<div class="align-right">
+<nav class="navbar navbar-default" >
+  <div class="container-fluid">
+    <div class="navbar-header">
+    <a class="navbar-brand" href="#!/wall">socialproject</a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+    
+
+  
+      
+      
+     <li><div data-ng-hide="currentuser.role=='ROLE_ADMIN' || currentuser.role=='ROLE_USER'">
+      <a href="#!/login"  style="color: black">LOGIN</a>
+      </div></li>
+      
+      
+       <li><div data-ng-hide="currentuser.role=='ROLE_ADMIN' || currentuser.role=='ROLE_USER'">
+     <a href="#!/register"  style="color:black">REGISTER</a>
+      </div></li>
+      
+     
+      <li><div data-ng-show="currentuser.role=='ROLE_ADMIN' || currentuser.role=='ROLE_USER' ">
+     <a data-ng-click="logout()" data-ng-controller="logoutcontroller">LOGOUT</a>
+</div></li>
+
+ <li><div data-ng-show="currentuser.role=='ROLE_ADMIN' || currentuser.role=='ROLE_USER' ">
+    <a href="#!/blog"  style="color:black">HOME</a>
+      </div></li>
+      
+      
+       <li><div data-ng-show="currentuser.role=='ROLE_USER' ">
+    <a href="#!/mywall"  style="color:black">MY WALL</a>
+      </div></li>
+  
+      <li><div data-ng-show="currentuser.role=='ROLE_ADMIN'">
+      <div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">REQUESTS
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#!/blogrequests">BLOG</a></li>
+   
+      </ul>
+</div>
+      
+      </div></li> 
+      
+      
+           <li><div data-ng-show="currentuser.role=='ROLE_ADMIN'">
+      <div class="dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">MANAGE
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu">
+    <li><a href="#!/blogmanage">BLOG</a></li>
+    
+  </ul>
+</div>
+      
+      </div></li> 
+      
+      
+      
+      
+        
+      
+      
+      
+      
+   
+    
+    </ul>
+  </div>
+</nav>
+
+
+
+</div>
+
+
+
+
+<div ng-view>
+
+</div>
+
+
+</body>
+</html>
 
 <!DOCTYPE html>
 <html>
@@ -16,7 +202,7 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<!-- Compiled and minified JavaScript -->
+Compiled and minified JavaScript
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
@@ -24,12 +210,12 @@
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.js"></script>
-<script src="js/main.js"></script>
+<script src="js/app.js"></script>
 <script src="User/UserController.js"></script>
-<script src="blog/blogController.js"></script>
-<script src="blog/adminBlogController.js"></script>
-<!-- <script src="user/userservices.js"></script>
- -->
+<script src="Blog/BlogController.js"></script>
+<script src="Blog/adminBlogController.js"></script>
+<script src="user/userservices.js"></script>
+
 <style>
 .card-1 {
 	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -52,7 +238,7 @@
 			<td><center>SOCIAL WEBSITE</center></td>
 		</tr>
 		<tr bgcolor="YELLOW">
-			<td><a href="#/">HOME</a>|&nbsp;&nbsp;&nbsp; 
+			<td><a href="#/mywall">HOME</a>|&nbsp;&nbsp;&nbsp; 
 			<a href="#blog"><i class="fa fa-shield"></i>BLOG</a>|&nbsp;&nbsp;&nbsp;
 				<a href="#/">FORUM</a>|&nbsp;&nbsp;&nbsp; <a href="#/">FRIEND</a>|&nbsp;&nbsp;&nbsp;
 				<a href="#/">JOB</a>|&nbsp;&nbsp;&nbsp;
@@ -78,3 +264,4 @@
 	<div ng-view></div>
 	</body>
 </html>
+ -->
